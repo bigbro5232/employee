@@ -6,6 +6,7 @@ const init = () => {
     getAllData();
 }
 
+
 const getAllData = async () => {
     try {
         const res = await fetch(baseUrl);
@@ -14,6 +15,18 @@ const getAllData = async () => {
         showEmployee(data);
     }
     catch (error) {
+        console.log(error);
+    }
+}
+
+const deleteEmployee = async (idx) => {
+    try {
+        const deleteUrl = url + '/' + idx;
+        const res = await fetch(deleteUrl, { method: 'DELETE' });
+        const data = await res.json();
+        console.log(data);
+        getAllData();
+    } catch (error) {
         console.log(error);
     }
 }
@@ -31,8 +44,8 @@ const showEmployee = (data) => {
                 <th>${employee.rnk}</th>
                 <th>${employee.email}</th>
                 <th>null</th>
-                <th><button onclick="getEmployee('${employee.idx}')">수정</button></th>
-                <th><button onclick="deleteEmployee('${employee.idx}')">삭제</button></th>
+                <th><button onclick="getEmployee">수정</button></th>
+                <th><button onclick="deleteEmployee">삭제</button></th>
             </tr>
         `;
     });
